@@ -17,13 +17,13 @@ class NewVisitorTest(unittest.TestCase):
 
 		#podiva se, jesli stranka dela to co ceka (to-do lists)
 		self.assertIn('To-Do', self.browser.title)
-		header_text = self.browser.find_element_by_tag_name('hl').text
+		header_text = self.browser.find_element_by_tag_name('h1').text
 		self.assertIn('To-Do', header_text)
 
 		#je naznacino ze hned muze zadavat veci do seznamu
 		inputbox = self.browser.find_element_by_id('id_new_item')
 		self.assertEqual(
-			inputbox.get_atribute('placeholder'),
+			inputbox.get_attribute('placeholder'),
 			'Enter a to-do item',
 		)
 
@@ -40,7 +40,8 @@ class NewVisitorTest(unittest.TestCase):
 		rows = table.find_elements_by_tag_name('tr')
 
 		self.assertTrue(
-			any(row.text == '1: koupit marmeladu' for row in rows)
+			any(row.text == '1: koupit marmeladu' for row in rows),
+			'New todo item didnt appear in the table'
 		)
 
 		#je tam furt textbox na pridani dalsiho predmetu
