@@ -36,30 +36,51 @@ class NewVisitorTest(LiveServerTestCase):
 
 		inputbox.send_keys('koupit marmeladu')
 
-		#zmackne enter a stranka se aktualizuje
+		#zmackne enter a je presmerovana na novy url s jejim seznamem
 		#ted ukazuje '1: koupit marmeladu'
 
 		inputbox.send_keys(Keys.ENTER)
+		zdislava_list_url = self.browser.current_url
 
+		self.assertRegex(zdislava_list_url, '/lists/.+')
 		self.check_for_row_in_list_table('1: koupit marmeladu')
 
 		#je tam furt textbox na pridani dalsiho predmetu
-		#napise 'udelat palacinky'
+		#napise 'koupit vino'
 
 		inputbox = self.browser.find_element_by_id('id_new_item')
 		inputbox.send_keys('koupit vino')
 		inputbox.send_keys(Keys.ENTER)
 
+		#stranka se aktualizuje a ted ukazuje voba predmety seznamu
+		
 		self.check_for_row_in_list_table('1: koupit marmeladu')
 		self.check_for_row_in_list_table('2: koupit vino')
-		
-		self.fail("dodelat testy!!")
+	
+		#ted prijde novej uzivatel francis
 
-		#stranka se aktualizuje a ted ukazuje voba predmety seznamu
+		self.browser.quit()
+		self.browser = webdriver.Firefox()
 
-		#Zdislava si vsimne, ze stranka ji vygenerovala unikatni url
+		#francis navstivi home page kde neni zadnej seznam zdislavy
+		self.browser.get(self.live_server_url)
+		page_text = self.browser.find_element_by_tag_name('body').text
+		self.assertNotIn('koupit marmeladu', page_text)
+		self.assertNotIn('koupit vino', page_text)
 
-		#zkusi ho navstivit a je tam jeji seznam
+		#francis zacne novej seznam pridanim novyho predmetu
+		inputbx = self.browser.find_element_by_id('id_new_item')
+		inputbox.send_keys('koupit vodku')
+		inputbox.send_keys(Keys.ENTER)
 
-		#vypne prohlizec
+		#francis dostane svoje unikatni url
+		francis_list_url = self.browser.current_url
+		self.assertRegex(francis_list_url, '/lists/.+')
+		self.assertNotEqual(francis_list_url, zdislava_list_url)
+
+		#ani ted nevidi nic ze seznamu zdislavy
+		page_text = self.browser.find_element_by_tag_name('body').text
+		self.assertNotIn('koupit marmeladu', page_text)
+		self.assertNotIn('koupit vino', page_text)
+
 
