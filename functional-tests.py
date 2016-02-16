@@ -16,7 +16,6 @@ class NewVisitorTest(unittest.TestCase):
 
 		#podiva se, jesli je v titulu to co ceka (to-do lists)
 		self.assertIn('To-Do', self.browser.title)
-		self.fail("finish!!")
 
 		#hned muze zadavat veci do seznamu
 
