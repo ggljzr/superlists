@@ -69,7 +69,7 @@ class NewVisitorTest(LiveServerTestCase):
 		self.assertNotIn('koupit vino', page_text)
 
 		#francis zacne novej seznam pridanim novyho predmetu
-		inputbx = self.browser.find_element_by_id('id_new_item')
+		inputbox = self.browser.find_element_by_id('id_new_item')
 		inputbox.send_keys('koupit vodku')
 		inputbox.send_keys(Keys.ENTER)
 
