@@ -39,13 +39,20 @@ class NewVisitorTest(unittest.TestCase):
 		table = self.browser.find_element_by_id('id_list_table')
 		rows = table.find_elements_by_tag_name('tr')
 
-		self.assertTrue(
-			any(row.text == '1: koupit marmeladu' for row in rows),
-			'New todo item didnt appear in the table'
-		)
 
 		#je tam furt textbox na pridani dalsiho predmetu
 		#napise 'udelat palacinky'
+
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		inputbox.send_keys('koupit vino')
+		inputbox.send_keys(Keys.ENTER)
+
+		table = self.browser.find_element_by_id('id_list_table')
+		rows = table.find_elements_by_tag_name('tr')
+
+		
+		self.assertIn('1: koupit marmeladu', [row.text for row in rows])
+		self.assertIn('2: koupit vino', [row.text for row in rows])
 
 		self.fail("dodelat testy!!")
 
