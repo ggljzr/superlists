@@ -11,6 +11,11 @@ class NewVisitorTest(unittest.TestCase):
 	def tearDown(self):
 		self.browser.quit()
 
+	def check_for_row_in_list_table(self, row_text):
+		table = self.browser.find_element_by_id('id_list_table')
+		rows = table.find_elements_by_tag_name('tr')
+		self.assertIn(row_text, [row.text for row in rows])
+
 	def test_can_start_a_list_and_retrieve_it_later(self):
 		#Zdislava chce vyzkouset novou stranku, zada adresu
 		self.browser.get('http://localhost:8000')
@@ -36,9 +41,7 @@ class NewVisitorTest(unittest.TestCase):
 
 		inputbox.send_keys(Keys.ENTER)
 
-		table = self.browser.find_element_by_id('id_list_table')
-		rows = table.find_elements_by_tag_name('tr')
-
+		self.check_for_row_in_list_table('1: koupit marmeladu')
 
 		#je tam furt textbox na pridani dalsiho predmetu
 		#napise 'udelat palacinky'
@@ -47,13 +50,9 @@ class NewVisitorTest(unittest.TestCase):
 		inputbox.send_keys('koupit vino')
 		inputbox.send_keys(Keys.ENTER)
 
-		table = self.browser.find_element_by_id('id_list_table')
-		rows = table.find_elements_by_tag_name('tr')
-
+		self.check_for_row_in_list_table('1: koupit marmeladu')
+		self.check_for_row_in_list_table('2: koupit vino')
 		
-		self.assertIn('1: koupit marmeladu', [row.text for row in rows])
-		self.assertIn('2: koupit vino', [row.text for row in rows])
-
 		self.fail("dodelat testy!!")
 
 		#stranka se aktualizuje a ted ukazuje voba predmety seznamu
