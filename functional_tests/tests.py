@@ -54,8 +54,8 @@ class NewVisitorTest(LiveServerTestCase):
 
 		#stranka se aktualizuje a ted ukazuje voba predmety seznamu
 		
-		self.check_for_row_in_list_table('1: koupit marmeladu')
 		self.check_for_row_in_list_table('2: koupit vino')
+		self.check_for_row_in_list_table('1: koupit marmeladu')
 	
 		#ted prijde novej uzivatel francis
 
