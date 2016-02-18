@@ -21,8 +21,13 @@ Assume we have a user at /home/username
 
 /home/username
 └── sites
+
     └── SITENAME
+
          ├── database
+
          ├── source
+
          ├── static
+
          └── virtualenv
