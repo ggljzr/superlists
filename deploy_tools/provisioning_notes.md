@@ -29,4 +29,9 @@ Assume we have a user at /home/username
         	 ├── source
         	 ├── static
          	 └── virtualenv
-    
+
+## Starting services
+```
+$ sudo service nginx reload
+$ sudo start gunicorn-pokuslol.tk
+```    
