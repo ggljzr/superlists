@@ -26,6 +26,5 @@ class ItemValidationTest(FunctionalTest):
 		self.assertEqual(error.text, "You can't have an empty list item")
 
 		#opravi to zadanim nejakyho textu
-		self.fail('write me!!!')
 
 
