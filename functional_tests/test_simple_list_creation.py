@@ -15,7 +15,7 @@ class NewVisitorTest(FunctionalTest):
 		self.assertIn('To-Do', header_text)
 
 		#je naznacino ze hned muze zadavat veci do seznamu
-		inputbox = self.browser.find_element_by_id('id_new_item')
+		inputbox = self.get_item_input_box() 
 		self.assertEqual(
 			inputbox.get_attribute('placeholder'),
 			'Enter a to-do item',
@@ -37,7 +37,7 @@ class NewVisitorTest(FunctionalTest):
 		#je tam furt textbox na pridani dalsiho predmetu
 		#napise 'koupit vino'
 
-		inputbox = self.browser.find_element_by_id('id_new_item')
+		inputbox = self.get_item_input_box() 
 		inputbox.send_keys('koupit vino')
 		inputbox.send_keys(Keys.ENTER)
 
@@ -58,7 +58,7 @@ class NewVisitorTest(FunctionalTest):
 		self.assertNotIn('koupit vino', page_text)
 
 		#francis zacne novej seznam pridanim novyho predmetu
-		inputbox = self.browser.find_element_by_id('id_new_item')
+		inputbox = self.get_item_input_box() 
 		inputbox.send_keys('koupit vodku')
 		inputbox.send_keys(Keys.ENTER)
 
